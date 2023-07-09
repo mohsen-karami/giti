@@ -1,1 +1,2 @@
-# giti
+# Giti
+A Git utility that uses an interactive menu and gets user inputs to format the Git commits. It also handles the complete process of pulling, staging, committing, and pushing the code into the remote git server.

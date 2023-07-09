@@ -10,6 +10,7 @@
 ###########################################################################
 
 source ./menu.sh
+source ./usage_guide.sh
 
 
 generate_comment_label () {
@@ -112,4 +113,13 @@ stage_commit_push () {
   fi
 }
 
-stage_commit_push
+if [[ $# -eq 0 ]]; then
+  usage_guide
+else
+  for option in $@; do
+    case $option in
+      (push) stage_commit_push;;
+      (*) usage_guide;;
+    esac
+  done
+fi
