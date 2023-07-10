@@ -13,6 +13,30 @@ source ./menu.sh
 source ./usage_guide.sh
 
 
+# Constants
+REPOSITORY=$(basename `git rev-parse --show-toplevel`)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ -z "$(git status --porcelain)" ]; then 
+  is_wd_clean=true
+else 
+  is_wd_clean=false
+fi
+
+# Check options
+IFS=' ' read -a Array <<<"$@"
+
+for element in $(seq 0 ${#Array}); do
+  case ${Array[$element]} in
+    (-h|--help) usage_guide;;
+    (-r|--revise) REVISE=${Array[$element+1]};;
+    (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
+             usage_guide
+             exit 1;;
+  esac
+done
+
+
 generate_comment_label () {
   printf "\e[1;93mWhat have you done?\n\e[1;0m"
   task_options=("Added new features" "Fixed bugs" "Modified style components" "Implemented minor changes" "Improved the code performance" "Refactored the code" "Wrote some tests" "Updated the documents")
@@ -70,14 +94,43 @@ generate_comment_body () {
   fi
 }
 
-REPOSITORY=$(basename `git rev-parse --show-toplevel`)
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-if [ -z "$(git status --porcelain)" ]; then 
-  is_wd_clean=true
-else 
-  is_wd_clean=false
-fi
+override_commits () {
+  # show a warning message that inform the user about the danger of their process
+  printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
+  read agreement
+  agreement=${agreement:-y}
+  if [ $agreement == y ]; then
+    if $is_wd_clean ; then
+      # check if there are some new commits on the remote branch
+      if [ $REVISE == 1 ]; then
+        printf "\e[1;96mFetching the last commit from the remote server\n\e[0;90m"
+      else
+        printf "\e[1;96mFetching the last $REVISE commits from the remote server\n\e[0;90m"
+      fi
+      git reset HEAD~$REVISE
+      generate_comment_label
+      generate_comment_title
+      title=$label$title
+      generate_comment_body
+      printf "\e[1;96mStaging the changes\n\n\e[0;90m"
+      git add .
+      line_break="-------------------------------------------------------"
+      if [ -z "$body" ]; then
+        printf "\n\e[1;96mCommiting your changes with the following message:\n$line_break\n\n\e[1;93m$title\n\e[0;90m"
+        git commit -m "$title"
+      else
+        printf "\e[1;96mCommiting your changes with the following message and description:\n$line_break\n\n\e[38;5;69m$title\n\n\n\e[38;5;169m$body\n\e[0;90m"
+        git commit -m "$title" -m "$body"
+      fi
+      printf "\e[1;96mPushing your commit \e[31mforcefully\e[96m into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
+      git push --force
+    else
+      printf "\e[1;1mPlease stash your changes or revert them before you override the previous commit(s)\n\e[0;90m"
+    fi
+  fi
+}
+
 
 stage_commit_push () {
   printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
@@ -113,12 +166,24 @@ stage_commit_push () {
   fi
 }
 
+push_changes() {
+  if [[ -z $REVISE ]]; then
+    stage_commit_push
+  else
+    if [ -z "${REVISE##*[!0-9]*}" ]; then
+      echo "Invalid argument: must be an integer" >&2; exit 1 
+    else
+      override_commits
+    fi
+  fi
+}
+
 if [[ $# -eq 0 ]]; then
   usage_guide
 else
   for option in $@; do
     case $option in
-      (push) stage_commit_push;;
+      (push) push_changes;;
       (*) usage_guide;;
     esac
   done
