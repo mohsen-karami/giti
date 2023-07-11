@@ -9,9 +9,9 @@
 # Email: karami.mohsen@protonmail.com
 ###########################################################################
 
-source ./menu.sh
-source ./usage_guide.sh
-
+GITI_PATH=$( dirname $0 )
+source $GITI_PATH/menu.sh
+source $GITI_PATH/usage_guide.sh
 
 # Constants
 REPOSITORY=$(basename `git rev-parse --show-toplevel`)
