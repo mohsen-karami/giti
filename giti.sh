@@ -49,7 +49,7 @@ generate_comment_label () {
 generate_comment_title () {
   index=1
   printf "\e[1;93mEnter your commit message:\n\e[0;90m"
-  read -a title_array
+  read -e -a title_array
   while [ -z ${title_array} ]; do
     ((index++))
     printf "\n\n\e[1;31mSorry, but the commit message is required.\e[0;39m\n"
@@ -58,7 +58,7 @@ generate_comment_title () {
       exit 2
     else
       printf "\e[1;93mEnter your commit message:\n\e[0;90m"
-      read -a title_array
+      read -e -a title_array
     fi
   done
   title=${title_array[*]}
@@ -70,7 +70,7 @@ generate_comment_body () {
   printf "\e[1;93mLeave a description for your commit:\n\e[0;90m"
   printf "\e[1;94mThis is an optional input, press Enter to skip this step.\n\e[0;90m"
   printf "\e[1;94mYou can write a multi-line description by typing "'\\\\n'" anywhere you wish to start a new line in your note.\n\e[0;90m"
-  read raw_description
+  read -e raw_description
   raw_description="${raw_description//" "/$'!$%*'}"
   raw_description="${raw_description//"\n"/\n$'\n'}"
   for element in $raw_description; do
@@ -80,7 +80,7 @@ generate_comment_body () {
   description="${description//"\n"/$'\n'}"
   printf "\e[1;93mIn case of using an issue tracker, provide the link below:\n\e[0;90m"
   printf "\e[1;94mThis is an optional input, press Enter to skip this step.\n\e[0;90m"
-  read link
+  read -e link
   if [ ! -z $link ]; then
     if [ ! ${link:0:4} == "http" ]; then
       link="https://"$link
