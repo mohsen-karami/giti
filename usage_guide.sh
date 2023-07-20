@@ -22,8 +22,10 @@ Common Giti commands are listed below:
 Common Giti options are listed below:
 
   -h    --help                                 Print the help document
+											   (The following options are merely available through the 'push' command)
   -r    --revise <integer>                     Override the specified number of commits with a fresh one
-                                               (This option is merely available through the 'push' command)
+  -t    --tag <tag-name>                       Attach the user input as a tag to the latest commit and push it to the remote server.
+  		--hash <commit-hash>                   Perform the previous action on a specific commit: It should get used alongside the -t option.
 
 
 Giti is available under GPLv3 at https://github.com/mohsen-karami/giti

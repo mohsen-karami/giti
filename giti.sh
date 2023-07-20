@@ -30,6 +30,8 @@ for element in $(seq 0 ${#Array}); do
   case ${Array[$element]} in
     (-h|--help) usage_guide;;
     (-r|--revise) REVISE=${Array[$element+1]};;
+    (-t|--tag) TAG=${Array[$element+1]};;
+    (--hash) HASH=${Array[$element+1]};;
     (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
              usage_guide
              exit 1;;
@@ -131,6 +133,16 @@ override_commits () {
   fi
 }
 
+push_tag() {
+  if [[ $HASH ]]; then
+    git tag $TAG $HASH
+  else
+    git tag $TAG
+  fi
+  git push origin $TAG
+  exit 0
+}
+
 
 stage_commit_push () {
   printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
@@ -167,14 +179,16 @@ stage_commit_push () {
 }
 
 push_changes() {
-  if [[ -z $REVISE ]]; then
-    stage_commit_push
-  else
+  if [[ $REVISE ]]; then
     if [ -z "${REVISE##*[!0-9]*}" ]; then
       echo "Invalid argument: must be an integer" >&2; exit 1 
     else
       override_commits
     fi
+  elif [[ $TAG ]]; then
+    push_tag
+  else
+    stage_commit_push
   fi
 }
 

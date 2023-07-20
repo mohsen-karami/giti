@@ -24,5 +24,9 @@ If your work is done and you wanna upload your changes into your intended remote
 Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `Number` is actually the number of commits you wanna replace with the new one.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
+#### giti push -t `tag-name`
+
+This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.
+
 ## License
 Giti is licensed under the GPLv3 license. See [LICENSE](https://github.com/mohsen-karami/giti/blob/master/LICENSE) for more information.
