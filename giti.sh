@@ -13,6 +13,7 @@ GITI_PATH=$( dirname $0 )
 source $GITI_PATH/menu.sh
 source $GITI_PATH/usage_guide.sh
 source $GITI_PATH/commands/push.sh
+source $GITI_PATH/commands/setup.sh
 
 # Constants
 REPOSITORY=$(basename `git rev-parse --show-toplevel`)
@@ -30,8 +31,9 @@ IFS=' ' read -a Array <<<"$@"
 for element in $(seq 0 ${#Array}); do
   case ${Array[$element]} in
     (-h|--help) usage_guide;;
-    (-r|--revise) REVISE=${Array[$element+1]};;
     (-t|--tag) TAG=${Array[$element+1]};;
+    (-r|--revise) REVISE=${Array[$element+1]};;
+    (--clear) CLEAR=true;;
     (--hash) HASH=${Array[$element+1]};;
     (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
              usage_guide
@@ -46,6 +48,7 @@ else
   for option in $@; do
     case $option in
       (push) push_changes;;
+      (setup) set_up;;
       (*) usage_guide;;
     esac
   done
