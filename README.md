@@ -34,7 +34,7 @@ You can simply configure your git identity (name and email), locally or globally
 
 #### giti setup --clear
 
-Clear your git identity by adding —clear to the setup command.
+Clear your git identity by adding `--clear` to the setup command.
 
 ## License
 Giti is licensed under the GPLv3 license. See [LICENSE](https://github.com/mohsen-karami/giti/blob/master/LICENSE) for more information.
