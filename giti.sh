@@ -31,6 +31,7 @@ IFS=' ' read -a Array <<<"$@"
 for element in $(seq 0 ${#Array}); do
   case ${Array[$element]} in
     (-h|--help) usage_guide;;
+    (-i|--initial) INITIAL=true;;
     (-t|--tag) TAG=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
     (--clear) CLEAR=true;;

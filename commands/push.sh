@@ -148,6 +148,9 @@ push_changes() {
     fi
   elif [[ $TAG ]]; then
     push_tag
+  elif [[ $INITIAL ]]; then
+    git push --set-upstream origin $BRANCH
+    exit 0
   else
     stage_commit_push
   fi

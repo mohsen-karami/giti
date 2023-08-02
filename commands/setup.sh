@@ -15,7 +15,7 @@ set_up() {
   if [[ $CLEAR ]]; then
     git config $scope --unset user.name
     git config $scope --unset user.email
-    exit 1
+    exit 0
   else
     printf "\e[1;96mEnter your name\n\e[0;90m"
     read -e name
