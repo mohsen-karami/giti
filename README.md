@@ -19,6 +19,10 @@ If you have set the alias correctly, Giti’s help document would get shown when
 
 If your work is done and you wanna upload your changes into your intended remote repository, all thing you need to do is to run the `giti push` command. Through the process, it stages your working tree files, commits them by getting your commit message as a required field, and description and reference link as additional optional fields, and then pushes them into the remote repository.
 
+#### giti push -i
+
+When you create a new branch, before being able to push anything, you need to set a remote branch as upstream; this would get done simply by adding an `-i` option to the push command.
+
 #### giti push -r `Number`
 
 Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `Number` is actually the number of commits you wanna replace with the new one.
