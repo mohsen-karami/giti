@@ -33,6 +33,7 @@ for element in $(seq 0 ${#Array}); do
     (-h|--help) usage_guide;;
     (-i|--initial) INITIAL=true;;
     (-t|--tag) TAG=${Array[$element+1]};;
+    (-m|--merge) MERGE=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
     (--clear) CLEAR=true;;
     (--hash) HASH=${Array[$element+1]};;

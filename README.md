@@ -23,9 +23,14 @@ If your work is done and you wanna upload your changes into your intended remote
 
 When you create a new branch, before being able to push anything, you need to set a remote branch as upstream; this would get done simply by adding an `-i` option to the push command.
 
-#### giti push -r `Number`
+#### giti push -r `number`
 
-Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `Number` is actually the number of commits you wanna replace with the new one.
+Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `number` is actually the number of commits you wanna replace with the new one.
+> Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
+
+#### giti push -m `number`
+
+Same as the previous one, unless you don’t need to clean your working tree since it merges your working tree changes with the pushed commits. It means you can merge your minor fixes, e.g., a fixed typo in the code, or a negligible style improvement with the previously merged commit, and avoid pushing a new commit for that slight update.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
 #### giti push -t `tag-name`

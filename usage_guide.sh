@@ -10,7 +10,7 @@
 
 usage_guide() {
   cat << EOF >&2
-Giti 0.3.1, a Git utility.
+Giti 0.3.2, a Git utility.
 Usage: giti <command> [<options>] [<args>]
 
 
@@ -26,7 +26,8 @@ Common Giti options are listed below:
   
   [push]
   -i    --initial                              Push the current branch and set the remote as upstream
-  -r    --revise <integer>                     Override the specified number of commits with a fresh one
+  -r    --revise <integer>                     Override the specified number of pushed commits with a fresh one
+  -m    --merge <integer>                      Merge the working tree changes with the specified number of pushed commits and override them with a fresh commit.
   -t    --tag <tag-name>                       Attach the user input as a tag to the latest commit and push it to the remote server.
         --hash <commit-hash>                   Perform the previous action on a specific commit: It should get used alongside the -t option.
   
