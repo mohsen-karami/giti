@@ -155,9 +155,9 @@ stage_commit_push () {
 push_changes() {
   if [[ $REVISE ]] || [[ $MERGE ]]; then
     if [ $REVISE ] && [ -z "${REVISE##*[!0-9]*}" ]; then
-      echo "Invalid argument: must be an integer" >&2; exit 1 
+      echo "Invalid argument: must be an integer" >&2; exit 1
     elif [ $MERGE ] && [ -z "${MERGE##*[!0-9]*}" ]; then
-      echo "Invalid argument: must be an integer" >&2; exit 1 
+      echo "Invalid argument: must be an integer" >&2; exit 1
     else
       override_commits
     fi

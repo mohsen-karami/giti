@@ -15,7 +15,11 @@ source $GITI_PATH/usage_guide.sh
 source $GITI_PATH/commands/push.sh
 source $GITI_PATH/commands/setup.sh
 
-# Constants
+if [ ! -d .git ]; then
+  echo "There is no git repository in the current directory."
+  exit 2
+fi
+
 REPOSITORY=$(basename `git rev-parse --show-toplevel`)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
@@ -25,7 +29,6 @@ else
   is_wd_clean=false
 fi
 
-# Check options
 IFS=' ' read -a Array <<<"$@"
 
 for element in $(seq 0 ${#Array}); do
