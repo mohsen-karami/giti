@@ -33,6 +33,10 @@ Sometimes, you may wanna override your commit message to fix a typo or add a pie
 Same as the previous one, unless you don’t need to clean your working tree since it merges your working tree changes with the pushed commits. It means you can merge your minor fixes, e.g., a fixed typo in the code, or a negligible style improvement with the previously merged commit, and avoid pushing a new commit for that slight update.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
+##### giti push -r/-m `number` --manual
+
+This option allows users to make changes to the fetched commits before pushing them. Consider the following scenario: You want to re-push some temporary commits and need to change some areas before submitting the results. In certain circumstances, you can apply your intended changes before executing the command, and the `-- merge` option will do the job, but in others, knowing the prior commit changes would greatly assist you in applying your intended changes.
+
 #### giti push -t `tag-name`
 
 This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.

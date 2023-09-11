@@ -26,13 +26,16 @@ Common Giti options are listed below:
   
   [push]
   -i    --initial                              Push the current branch and set the remote as upstream
+
   -r    --revise <integer>                     Override the specified number of pushed commits with a fresh one
   -m    --merge <integer>                      Merge the working tree changes with the specified number of pushed commits and override them with a fresh commit.
+        --manual                               Enable the user to modify the fetched commits before pushing them.
+  
   -t    --tag <tag-name>                       Attach the user input as a tag to the latest commit and push it to the remote server.
-        --hash <commit-hash>                   Perform the previous action on a specific commit: It should get used alongside the -t option.
+        --hash <commit-hash>                   Perform the previous action on a specific commit.
   
   [setup]
-        --clear                                Clear your git identity (name and email) locally or globally.
+        --clear                                Clear the git identity (name and email) locally or globally.
 
 
 Giti is available under GPLv3 at https://github.com/mohsen-karami/giti

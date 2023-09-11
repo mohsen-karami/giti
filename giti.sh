@@ -39,6 +39,7 @@ for element in $(seq 0 ${#Array}); do
     (-m|--merge) MERGE=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
     (--clear) CLEAR=true;;
+    (--manual) MANUAL=true;;
     (--hash) HASH=${Array[$element+1]};;
     (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
              usage_guide

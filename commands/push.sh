@@ -85,6 +85,16 @@ override_commits () {
         exit 1
       fi
     fi
+    if [[ $MANUAL ]]; then
+      printf "\e[1;31mPlease confirm if you've done with the changes. (yes)\n\e[0;90m"
+      while true; do
+        read confirm
+        case $confirm in
+          [Yy][Ee][Ss] ) break;;
+          * ) printf "\e[1mPlease enter 'yes' to proceed. (It's not case-sensitive)\n\e[0;90m";;
+        esac
+      done
+    fi
     generate_comment_label
     generate_comment_title
     title=$label$title
