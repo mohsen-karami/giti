@@ -111,9 +111,6 @@ override_commits () {
     fi
     printf "\e[1;96mPushing your commit \e[31mforcefully\e[96m into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
     git push --force
-    exit 0
-  else
-    exit 0
   fi
 }
 
@@ -124,7 +121,6 @@ push_tag() {
     git tag $TAG
   fi
   git push origin $TAG
-  exit 0
 }
 
 
@@ -175,8 +171,8 @@ push_changes() {
     push_tag
   elif [[ $INITIAL ]]; then
     git push --set-upstream origin $BRANCH
-    exit 0
   else
     stage_commit_push
   fi
+  exit 0
 }
