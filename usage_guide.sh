@@ -25,6 +25,8 @@ Common Giti options are listed below:
   -h    --help                                 Print the help document
   
   [push]
+        --staged                               Solely push the staged changes
+
   -i    --initial                              Push the current branch and set the remote as upstream
 
   -r    --revise <integer>                     Override the specified number of pushed commits with a fresh one

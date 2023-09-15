@@ -23,6 +23,10 @@ If your work is done and you wanna upload your changes into your intended remote
 
 When you create a new branch, before being able to push anything, you need to set a remote branch as upstream; this would get done simply by adding an `-i` option to the push command.
 
+#### giti push --staged
+
+You may wanna push only parts of your code changes, so stage those parts and then run the command. Everything would be the same as the `giti push` command unless solely the staged changes would get pushed to your repository.
+
 #### giti push -r `number`
 
 Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `number` is actually the number of commits you wanna replace with the new one.

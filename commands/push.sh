@@ -136,14 +136,16 @@ stage_commit_push () {
       generate_comment_title
       title=$label$title
       generate_comment_body
-      printf "\e[1;96mStashing your current changes\n\e[0;90m"
-      git stash --include-untracked
-      printf "\e[1;96mPulling the latest changes of the \e[39m$BRANCH\e[96m branch\n\e[0;90m"
-      git pull
-      printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
-      git stash pop
-      printf "\e[1;96mStaging the changes\n\n\e[0;90m"
-      git add .
+      if [[ ! $STAGED ]]; then
+        printf "\e[1;96mStashing your current changes\n\e[0;90m"
+        git stash --include-untracked
+        printf "\e[1;96mPulling the latest changes of the \e[39m$BRANCH\e[96m branch\n\e[0;90m"
+        git pull
+        printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
+        git stash pop
+        printf "\e[1;96mStaging the changes\n\n\e[0;90m"
+        git add .
+      fi
       line_break="-------------------------------------------------------"
       if [ -z "$body" ]; then
         printf "\n\e[1;96mCommiting your changes with the following message:\n$line_break\n\n\e[1;93m$title\n\e[0;90m"
