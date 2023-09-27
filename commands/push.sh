@@ -123,6 +123,27 @@ push_tag() {
   git push origin $TAG
 }
 
+updateLastCommit () {
+  printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
+  read agreement
+  agreement=${agreement:-y}
+  if [ $agreement == y ]; then
+    if $is_wd_clean ; then
+      printf "\e[1;1mNothing to commit, the working directory is clean\n\e[0;90m"
+    else
+      # show a warning that tells the user should be caution when using this command since...
+      printf "\e[1;96mStaging the changes\n\e[0;90m"
+      git add .
+      line_break="-------------------------------------------------------"
+      printf "\n\e[1;96m$line_break\n\n"
+      printf "\e[1;96mAppending your changes to the last commit of the \e[39m$BRANCH\e[96m branch in the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
+      git commit --amend --no-edit
+      printf "\e[1;96mPushing your commit \e[31mforcefully\e[96m into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
+      git push --force
+    fi
+  fi
+}
+
 
 stage_commit_push () {
   printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
@@ -178,6 +199,8 @@ push_changes() {
     push_tag
   elif [[ $INITIAL ]]; then
     git push --set-upstream origin $BRANCH
+  elif [[ $APPEND ]]; then
+    updateLastCommit
   else
     stage_commit_push
   fi

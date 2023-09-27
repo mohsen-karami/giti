@@ -38,6 +38,7 @@ for element in $(seq 0 ${#Array}); do
     (-t|--tag) TAG=${Array[$element+1]};;
     (-m|--merge) MERGE=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
+    (-a|--append) APPEND=true;;
     (--clear) CLEAR=true;;
     (--manual) MANUAL=true;;
     (--staged) STAGED=true;;

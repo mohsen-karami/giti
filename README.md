@@ -45,6 +45,10 @@ This option allows users to make changes to the fetched commits before pushing t
 
 Imagine you wrote a bunch of code or implemented a genius solution, and even though it’s not yet ready to get pushed, you’re looking for a way to avoid losing it. In these scenarios, it would be best to push a temporary commit and replace it with a polished one when everything is ok.
 
+#### git push -a/--append
+
+It's common to forget to include certain files in a commit or accidentally include unrelated changes; if you find yourself in this situation, just simply add your intended changes to the previous commit using the `--append` option.
+
 #### giti push -t `tag-name`
 
 This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.
