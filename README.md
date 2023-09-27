@@ -19,7 +19,7 @@ If you have set the alias correctly, Giti’s help document would get shown when
 
 If your work is done and you wanna upload your changes into your intended remote repository, all thing you need to do is to run the `giti push` command. Through the process, it stages your working tree files, commits them by getting your commit message as a required field, and description and reference link as additional optional fields, and then pushes them into the remote repository.
 
-#### giti push -i
+#### giti push -i/--initial
 
 When you create a new branch, before being able to push anything, you need to set a remote branch as upstream; this would get done simply by adding an `-i` option to the push command.
 
@@ -27,19 +27,19 @@ When you create a new branch, before being able to push anything, you need to se
 
 You may wanna push only parts of your code changes, so stage those parts and then run the command. Everything would be the same as the `giti push` command unless solely the staged changes would get pushed to your repository.
 
-#### giti push -r `number`
+#### giti push -r/--revise `number`
 
 Sometimes, you may wanna override your commit message to fix a typo or add a piece of missing information, or even wanna merge some of your last related commits to have a cleaner history. This option is what you need, and the `number` is actually the number of commits you wanna replace with the new one.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
-#### giti push -m `number`
+#### giti push -m/--merge `number`
 
 Same as the previous one, unless you don’t need to clean your working tree since it merges your working tree changes with the pushed commits. It means you can merge your minor fixes, e.g., a fixed typo in the code, or a negligible style improvement with the previously merged commit, and avoid pushing a new commit for that slight update.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
 ##### giti push -r/-m `number` --manual
 
-This option allows users to make changes to the fetched commits before pushing them. Consider the following scenario: You want to re-push some temporary commits and need to change some areas before submitting the results. In certain circumstances, you can apply your intended changes before executing the command, and the `-- merge` option will do the job, but in others, knowing the prior commit changes would greatly assist you in applying your intended changes.
+This option allows users to make changes to the fetched commits before pushing them. Consider the following scenario: You want to re-push some temporary commits and need to change some areas before submitting the results. In certain circumstances, you can apply your intended changes before executing the command, and the `--merge` option will do the job, but in others, knowing the prior commit changes would greatly assist you in applying your intended changes.
 
 #### giti push --temp
 
