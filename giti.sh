@@ -41,6 +41,7 @@ for element in $(seq 0 ${#Array}); do
     (--clear) CLEAR=true;;
     (--manual) MANUAL=true;;
     (--staged) STAGED=true;;
+    (--temp) TEMPORARY=true;;
     (--hash) HASH=${Array[$element+1]};;
     (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
              usage_guide

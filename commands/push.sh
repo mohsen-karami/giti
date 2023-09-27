@@ -132,10 +132,15 @@ stage_commit_push () {
     if $is_wd_clean ; then
       printf "\e[1;1mNothing to commit, the working directory is clean\n\e[0;90m"
     else
-      generate_comment_label
-      generate_comment_title
-      title=$label$title
-      generate_comment_body
+      if [ $TEMPORARY ]; then
+        title="TEMPORARY: This commit is temporary and will be removed afterward."
+        body="This commit represents unfinished work on adding a feature or resolving a bug. The main reason for existing such commits is the user's cautiousness to avoid losing the code even though it's not ready yet."
+      else
+        generate_comment_label
+        generate_comment_title
+        title=$label$title
+        generate_comment_body
+      fi
       if [[ ! $STAGED ]]; then
         printf "\e[1;96mStashing your current changes\n\e[0;90m"
         git stash --include-untracked

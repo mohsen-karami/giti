@@ -41,6 +41,10 @@ Same as the previous one, unless you don’t need to clean your working tree sin
 
 This option allows users to make changes to the fetched commits before pushing them. Consider the following scenario: You want to re-push some temporary commits and need to change some areas before submitting the results. In certain circumstances, you can apply your intended changes before executing the command, and the `-- merge` option will do the job, but in others, knowing the prior commit changes would greatly assist you in applying your intended changes.
 
+#### giti push --temp
+
+Imagine you wrote a bunch of code or implemented a genius solution, and even though it’s not yet ready to get pushed, you’re looking for a way to avoid losing it. In these scenarios, it would be best to push a temporary commit and replace it with a polished one when everything is ok.
+
 #### giti push -t `tag-name`
 
 This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.

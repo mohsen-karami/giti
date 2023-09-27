@@ -10,7 +10,7 @@
 
 usage_guide() {
   cat << EOF >&2
-Giti 0.3.2, a Git utility.
+Giti 0.3.3, a Git utility.
 Usage: giti <command> [<options>] [<args>]
 
 
@@ -25,6 +25,8 @@ Common Giti options are listed below:
   -h    --help                                 Print the help document
   
   [push]
+        --temp                                 Push the changes as a temporary commit with a default message and description.
+
         --staged                               Solely push the staged changes
 
   -i    --initial                              Push the current branch and set the remote as upstream
