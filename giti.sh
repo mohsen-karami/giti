@@ -21,7 +21,7 @@ if [ ! -d .git ]; then
 fi
 
 REPOSITORY=$(basename `git rev-parse --show-toplevel`)
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
+BRANCH=$(git branch --show-current)
 
 if [ -z "$(git status --porcelain)" ]; then 
   is_wd_clean=true
