@@ -10,7 +10,7 @@
 
 usage_guide() {
   cat << EOF >&2
-Giti 0.3.4, a Git utility.
+Giti 0.4.0, a Git utility.
 Usage: giti <command> [<options>] [<args>]
 
 
@@ -25,6 +25,7 @@ Common Giti options are listed below:
   -h    --help                                 Print the help document
   
   [push]
+
         --temp                                 Push the changes as a temporary commit with a default message and description.
 
         --staged                               Solely push the staged changes
@@ -40,7 +41,14 @@ Common Giti options are listed below:
   -t    --tag <tag-name>                       Attach the user input as a tag to the latest commit and push it to the remote server.
         --hash <commit-hash>                   Perform the previous action on a specific commit.
   
+  [remove]
+
+  -b    --branch <branch-name>                 Remove the specified branch from your local machine and the remote repository.
+
+  -cb   --current-branch                       Remove the current branch from your local machine and the remote repository.
+  
   [setup]
+
         --clear                                Clear the git identity (name and email) locally or globally.
 
 

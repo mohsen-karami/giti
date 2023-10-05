@@ -1,9 +1,9 @@
 # Giti
 A Git utility that uses an interactive menu and gets user inputs to format the Git commits. It also handles the complete process of pulling, staging, committing, and pushing the code into the remote git server.
 
-> Warning: Giti is still in the **EXPERIMENTAL** phase. It is highly recommended to use it with caution and at your own risk.
+> **Warning:** Giti is still in the **EXPERIMENTAL** phase. It is highly recommended to use it with caution and at your own risk.
 
-> I urge you to execute the commands on a trial repository first. Please keep in mind that only standard scenarios are presently available. In case of any added intricacy, verify the procedure and refrain from relying on the script.
+> **Note:** I urge you to execute the commands on a trial repository first. Please keep in mind that only standard scenarios are presently available, so in case of any added intricacy, verify the procedure and refrain from relying on the script.
 ## Install
 Still, there is no option to install Giti, but you can clone the repository and create an alias in your `.bashrc` or `.zshrc` file with the following format:
 ```
@@ -53,6 +53,16 @@ It's common to forget to include certain files in a commit or accidentally inclu
 #### giti push -t `tag-name`
 
 This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.
+
+### giti remove
+
+#### giti remove -b/--branch `branch-name`
+
+If you've checked out a branch and wanna remove another one, simply run the command with the name of the branch you've intended to remove.
+
+#### giti remove -cb/--current-branch
+
+If you've checked out a branch and wanna remove it, you don't even need to enter its name.
 
 ### giti setup
 

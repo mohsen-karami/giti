@@ -14,6 +14,7 @@ source $GITI_PATH/menu.sh
 source $GITI_PATH/usage_guide.sh
 source $GITI_PATH/commands/push.sh
 source $GITI_PATH/commands/setup.sh
+source $GITI_PATH/commands/remove.sh
 
 if [ ! -d .git ]; then
   echo "There is no git repository in the current directory."
@@ -34,11 +35,13 @@ IFS=' ' read -a Array <<<"$@"
 for element in $(seq 0 ${#Array}); do
   case ${Array[$element]} in
     (-h|--help) usage_guide;;
+    (-a|--append) APPEND=true;;
     (-i|--initial) INITIAL=true;;
     (-t|--tag) TAG=${Array[$element+1]};;
     (-m|--merge) MERGE=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
-    (-a|--append) APPEND=true;;
+    (-b|--branch) REMOVE_BRANCH=${Array[$element+1]};;
+    (-cb|--current-branch) REMOVE_CURRENT_BRANCH=true;;
     (--clear) CLEAR=true;;
     (--manual) MANUAL=true;;
     (--staged) STAGED=true;;
@@ -50,12 +53,12 @@ for element in $(seq 0 ${#Array}); do
   esac
 done
 
-
 if [[ $# -eq 0 ]]; then
   usage_guide
 else
   for option in $@; do
     case $option in
+      (remove) remove_options;;
       (push) push_changes;;
       (setup) set_up;;
       (*) usage_guide;;

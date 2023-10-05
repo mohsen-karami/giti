@@ -71,9 +71,9 @@ override_commits () {
         printf "\e[1;92mThe working tree is clean; in such cases, it's better to run \e[7mgiti push -r $NUMBER\e[27m instead.\n\e[0;90m"
       fi
       if [ $NUMBER == 1 ]; then
-        printf "\e[1;96mFetching the last commit from the remote server\n\e[0;90m"
+        printf "\e[1;96mFetching the last commit from the remote server.\n\e[0;90m"
       else
-        printf "\e[1;96mFetching the last $NUMBER commits from the remote server\n\e[0;90m"
+        printf "\e[1;96mFetching the last $NUMBER commits from the remote server.\n\e[0;90m"
       fi
       git reset HEAD~$NUMBER
     else
@@ -123,7 +123,7 @@ push_tag() {
   git push origin $TAG
 }
 
-updateLastCommit () {
+update_last_commit () {
   printf "\e[1;31mNote:\e[0;39m your current branch is \e[1m$BRANCH\e[0m, are you sure to continue?(y/n)"
   read agreement
   agreement=${agreement:-y}
@@ -200,7 +200,7 @@ push_changes() {
   elif [[ $INITIAL ]]; then
     git push --set-upstream origin $BRANCH
   elif [[ $APPEND ]]; then
-    updateLastCommit
+    update_last_commit
   else
     stage_commit_push
   fi
