@@ -1,8 +1,9 @@
 # Giti
 A Git utility that uses an interactive menu and gets user inputs to format the Git commits. It also handles the complete process of pulling, staging, committing, and pushing the code into the remote git server.
 
-> Warning: Giti is still **EXPERIMENTAL**, and it’s highly recommended to use it with caution.
+> Warning: Giti is still in the **EXPERIMENTAL** phase. It is highly recommended to use it with caution and at your own risk.
 
+> I urge you to execute the commands on a trial repository first. Please keep in mind that only standard scenarios are presently available. In case of any added intricacy, verify the procedure and refrain from relying on the script.
 ## Install
 Still, there is no option to install Giti, but you can clone the repository and create an alias in your `.bashrc` or `.zshrc` file with the following format:
 ```
