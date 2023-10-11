@@ -11,6 +11,14 @@ Still, there is no option to install Giti, but you can clone the repository and 
 alias giti='bash ~/path/to/giti/giti.sh'
 ```
 
+## Roadmap
+
+- [ ] Adding all essential features.
+- [ ] Testing all possible scenarios and resolving potential issues.
+- [ ] Updating the user screen messages and the document to fill all possible gaps in terms of represented information.
+- [ ] Provide an installable approach.
+- [ ] Releasing the initial version.
+
 ## Usage
 ### giti
 
@@ -41,6 +49,7 @@ Same as the previous one, unless you don’t need to clean your working tree sin
 ##### giti push -r/-m `number` --manual
 
 This option allows users to make changes to the fetched commits before pushing them. Consider the following scenario: You want to re-push some temporary commits and need to change some areas before submitting the results. In certain circumstances, you can apply your intended changes before executing the command, and the `--merge` option will do the job, but in others, knowing the prior commit changes would greatly assist you in applying your intended changes.
+> Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
 #### giti push --temp
 
@@ -49,12 +58,15 @@ Imagine you wrote a bunch of code or implemented a genius solution, and even tho
 #### git push -a/--append
 
 It's common to forget to include certain files in a commit or accidentally include unrelated changes; if you find yourself in this situation, just simply add your intended changes to the previous commit using the `--append` option.
+> Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
 
 #### giti push -t `tag-name`
 
 This option attaches the user input as a tag to the latest commit and pushes it to the remote server. In the case you wanna assign a tag for a previous commit, you can add `--hash commit-hash` to the original command.
 
 ### giti remove
+
+Use the following commands to remove your intended branch from both your local machine and the remote repository.
 
 #### giti remove -b/--branch `branch-name`
 
