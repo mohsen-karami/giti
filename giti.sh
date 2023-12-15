@@ -14,6 +14,7 @@ source $GITI_PATH/menu.sh
 source $GITI_PATH/usage_guide.sh
 source $GITI_PATH/commands/push.sh
 source $GITI_PATH/commands/setup.sh
+source $GITI_PATH/commands/fresh.sh
 source $GITI_PATH/commands/remove.sh
 
 if [ ! -d .git ]; then
@@ -40,8 +41,9 @@ for element in $(seq 0 ${#Array}); do
     (-t|--tag) TAG=${Array[$element+1]};;
     (-m|--merge) MERGE=${Array[$element+1]};;
     (-r|--revise) REVISE=${Array[$element+1]};;
-    (-b|--branch) REMOVE_BRANCH=${Array[$element+1]};;
-    (-cb|--current-branch) REMOVE_CURRENT_BRANCH=true;;
+    (-b|--branch) BRANCH_NAME=${Array[$element+1]};;
+    (-n|--name) NEW_BRANCH_NAME=${Array[$element+1]};;
+    (-cb|--current-branch) CURRENT_BRANCH_NAME=true;;
     (--clear) CLEAR=true;;
     (--manual) MANUAL=true;;
     (--staged) STAGED=true;;
@@ -58,8 +60,9 @@ if [[ $# -eq 0 ]]; then
 else
   for option in $@; do
     case $option in
-      (remove) remove_options;;
+      (fresh) fresh_options;;
       (push) push_changes;;
+      (remove) remove_options;;
       (setup) set_up;;
       (*) usage_guide;;
     esac

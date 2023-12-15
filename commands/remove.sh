@@ -1,12 +1,12 @@
 #!/bin/bash
 
 remove_branch() {
-  [[ $REMOVE_BRANCH ]] && BRANCH=$REMOVE_BRANCH
+  [[ $BRANCH_NAME ]] && BRANCH=$BRANCH_NAME
   printf "\e[1;31mNote:\e[0;39m you're gonna remove the \e[1m$BRANCH\e[0m branch, are you sure to continue?(y/n)"
   read confirm
   confirm=${confirm:-y}
   if [ $confirm == y ]; then
-    if [[ $REMOVE_CURRENT_BRANCH ]]; then
+    if [[ $CURRENT_BRANCH_NAME ]]; then
       printf "\e[1;96mSwitch to the branch \e[1mmaster\e[0m.\n\e[0;90m"
       git checkout master
     fi
@@ -19,8 +19,8 @@ remove_branch() {
 
 
 remove_options() {
-  if [[ $REMOVE_CURRENT_BRANCH ]] || [[ $REMOVE_BRANCH ]]; then
-    [[ $REMOVE_BRANCH == $BRANCH ]] && REMOVE_CURRENT_BRANCH=true
+  if [[ $CURRENT_BRANCH_NAME ]] || [[ $BRANCH_NAME ]]; then
+    [[ $BRANCH_NAME == $BRANCH ]] && CURRENT_BRANCH_NAME=true
     remove_branch
   else
     usage_guide

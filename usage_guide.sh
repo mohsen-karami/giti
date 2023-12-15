@@ -24,6 +24,12 @@ Common Giti options are listed below:
 
   -h    --help                                 Print the help document
   
+  [fresh]
+
+  -b    --branch <branch-name>                 Create a new branch that originates from the specified branch.
+
+  -n    --name <branch-name>                   Create a new branch with the given name.
+
   [push]
 
         --temp                                 Push the changes as a temporary commit with a default message and description.
@@ -34,8 +40,8 @@ Common Giti options are listed below:
 
   -i    --initial                              Push the current branch and set the remote as upstream
 
-  -r    --revise <integer>                     Override the specified number of pushed commits with a fresh one
   -m    --merge <integer>                      Merge the working tree changes with the specified number of pushed commits and override them with a fresh commit.
+  -r    --revise <integer>                     Override the specified number of pushed commits with a fresh one
         --manual                               Enable the user to modify the fetched commits before pushing them.
   
   -t    --tag <tag-name>                       Attach the user input as a tag to the latest commit and push it to the remote server.

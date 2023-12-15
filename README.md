@@ -24,6 +24,18 @@ alias giti='bash ~/path/to/giti/giti.sh'
 
 If you have set the alias correctly, Giti’s help document would get shown when you run the `giti` command in your terminal environment. You can also show the help documents by running the `giti -h` and `giti --help` commands.
 
+### giti fresh
+
+Using the `fresh` command, you can easily create a new branch and set the remote as its upstream.
+
+#### giti fresh -n/--name `new-branch-name`
+
+This attribute is required when using the `fresh` command as it specifies the name of the intended branch to be created.
+
+#### giti fresh -n/--name `new-branch-name` -b/--branch `branch-name`
+
+This command specifies the origin branch you wanna use as your new branch's starting point. Ignoring this option will consider the current branch you're checking out as the origin branch.
+
 ### giti push
 
 If your work is done and you wanna upload your changes into your intended remote repository, all thing you need to do is to run the `giti push` command. Through the process, it stages your working tree files, commits them by getting your commit message as a required field, and description and reference link as additional optional fields, and then pushes them into the remote repository.
