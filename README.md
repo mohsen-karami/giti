@@ -5,11 +5,43 @@ A Git utility that uses an interactive menu and gets user inputs to format the G
 
 > **Note:** I urge you to execute the commands on a trial repository first. Please keep in mind that only standard scenarios are presently available, so in case of any added intricacy, verify the procedure and refrain from relying on the script.
 ## Install
-Still, there is no option to install Giti, but you can clone the repository and create an alias in your `.bashrc` or `.zshrc` file with the following format:
-```
-# Alias for the Giti script:
-alias giti='bash ~/path/to/giti/giti.sh'
-```
+Still, there is no option to install Giti, but you can clone the repository and create an alias to run it more appropriately.
+
+### Unix-based Systems (Linux, macOS)
+
+For Unix-based systems like Linux and macOS, you can add an alias to your `.bashrc` or `.zshrc` file. Here's how:
+
+1. Open a terminal.
+2. Use a text editor to open your `.bashrc` or `.zshrc` file. If you're not sure which one to use, try `.bashrc` first. For example, you can type `nano ~/.bashrc` to open the file in the nano text editor.
+3. Scroll to the bottom of the file and add the following lines:
+    ```
+    # Alias for the Giti script
+    alias giti='bash ~/path/to/giti/giti.sh'
+    ```
+4. To make the new alias available in your current terminal session, type `source ~/.bashrc` or `source ~/.zshrc`, depending on which file you edited.
+5. Now, you can use the `giti` command in your terminal to run the script.
+
+Please replace `~/path/to/giti/giti.sh` with the actual path to your `giti.sh` file.
+
+### Windows
+
+For Windows users, the process is slightly different as Bash is not installed by default. However, you can use [Git Bash](https://git-scm.com/), which is a bash interpreter for Windows.
+Here's how you can add the alias:
+
+1. Open Git Bash. You can do this by right-clicking in any folder and selecting 'Git Bash Here'.
+2. In the Git Bash window, type `cd ~` to go to your home directory.
+3. Then, type `touch .bashrc` to create a new .bashrc file if it doesn't exist already.
+4. Open the .bashrc file with a text editor. You can do this directly from Git Bash by typing `notepad.exe .bashrc`.
+5. In the opened Notepad, add the following lines at the end of the file:
+    ```
+    # Alias for the Giti script
+    alias giti='bash ~/path/to/giti/giti.sh'
+    ```
+6. Close the Git Bash window and reopen it. The alias should now be available.
+
+Please replace `~/path/to/giti/giti.sh` with the actual path to your `giti.sh` file. Now, you can use the `giti` command in Git Bash to run your script.
+
+Remember, this alias will only be available in the Git Bash environment, not in the regular Windows Command Prompt (cmd) or PowerShell. If you want to use the script outside of Git Bash, you might need to create a batch (.bat) file or use a different method. 
 
 ## Roadmap
 
