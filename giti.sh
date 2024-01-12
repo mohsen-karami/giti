@@ -46,6 +46,7 @@ for element in $(seq 0 ${#Array}); do
     (-cb|--current-branch) CURRENT_BRANCH_NAME=true;;
     (--clear) CLEAR=true;;
     (--manual) MANUAL=true;;
+    (--push) PUSH=true;;
     (--staged) STAGED=true;;
     (--temp) TEMPORARY=true;;
     (--hash) HASH=${Array[$element+1]};;

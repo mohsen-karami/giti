@@ -13,12 +13,16 @@ new_branch() {
     if [[ ! $CURRENT_BRANCH_NAME ]]; then
       git checkout $BRANCH
     fi
-    printf "\e[1;96mCreate the \e[1m$NEW_BRANCH_NAME\e[0m branch\n\e[0;90m"
+    printf "\e[1;96mCreate the \e[1;1m$NEW_BRANCH_NAME\e[1;96m branch and switch to it\n\e[0;90m"
     git checkout -b $NEW_BRANCH_NAME
-    printf "\e[1;96mPush the \e[1m$NEW_BRANCH_NAME\e[0m branch and set the remote as upstream\n\e[0;90m"
+    printf "\e[1;96mPush the \e[1;1m$NEW_BRANCH_NAME\e[1;96m branch and set the remote as upstream\n\e[0;90m"
     git push --set-upstream origin $NEW_BRANCH_NAME
     printf "\e[1;96mHere's the list of your branches:\n\e[0;90m"
     git branch | less -F -X
+    if [[ $PUSH ]]; then
+      BRANCH=$NEW_BRANCH_NAME
+      stage_commit_push
+    fi
   fi
 }
 

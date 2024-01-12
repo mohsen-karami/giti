@@ -30,6 +30,8 @@ Common Giti options are listed below:
 
   -n    --name <branch-name>                   Create a new branch with the given name.
 
+        --push                                 Push the working tree changes to the newly created repository.
+
   [push]
 
         --temp                                 Push the changes as a temporary commit with a default message and description.

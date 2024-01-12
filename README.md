@@ -68,6 +68,10 @@ This attribute is required when using the `fresh` command as it specifies the na
 
 This command specifies the origin branch you wanna use as your new branch's starting point. Ignoring this option will consider the current branch you're checking out as the origin branch.
 
+#### giti fresh -n/--name `new-branch-name` --push
+
+Imagine you've done your work and wanna push it on a new repository. You need to create a new repository, set a remote branch as upstream, and then commit and push your changes. In such cases, you can achieve all the mentioned steps by only running the `giti fresh` command with the `--push` attribute.
+
 ### giti push
 
 If your work is done and you wanna upload your changes into your intended remote repository, all thing you need to do is to run the `giti push` command. Through the process, it stages your working tree files, commits them by getting your commit message as a required field, and description and reference link as additional optional fields, and then pushes them into the remote repository.
@@ -99,7 +103,7 @@ This option allows users to make changes to the fetched commits before pushing t
 
 Imagine you wrote a bunch of code or implemented a genius solution, and even though it’s not yet ready to get pushed, you’re looking for a way to avoid losing it. In these scenarios, it would be best to push a temporary commit and replace it with a polished one when everything is ok.
 
-#### git push -a/--append
+#### giti push -a/--append
 
 It's common to forget to include certain files in a commit or accidentally include unrelated changes; if you find yourself in this situation, just simply add your intended changes to the previous commit using the `--append` option.
 > Warning: This command needs to perform a **force push**, and thus it could be risky to use it. Please run this command only if you exactly know what you’re doing.
