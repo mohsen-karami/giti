@@ -43,14 +43,6 @@ Please replace `~/path/to/giti/giti.sh` with the actual path to your `giti.sh` f
 
 Remember, this alias will only be available in the Git Bash environment, not in the regular Windows Command Prompt (cmd) or PowerShell. If you want to use the script outside of Git Bash, you might need to create a batch (.bat) file or use a different method. 
 
-## Roadmap
-
-- [ ] Adding all essential features.
-- [ ] Testing all possible scenarios and resolving potential issues.
-- [ ] Updating the user screen messages and the document to fill all possible gaps in terms of represented information.
-- [ ] Provide an installable approach.
-- [ ] Releasing the initial version.
-
 ## Usage
 ### giti
 
@@ -70,7 +62,7 @@ This command specifies the origin branch you wanna use as your new branch's star
 
 #### giti fresh -n/--name `new-branch-name` --push
 
-Imagine you've done your work and wanna push it on a new repository. You need to create a new repository, set a remote branch as upstream, and then commit and push your changes. In such cases, you can achieve all the mentioned steps by only running the `giti fresh` command with the `--push` attribute.
+Imagine you've done your work and wanna push it on a new repository. You need to create a new repository, set a remote branch as upstream, and then commit and push your changes. In such cases, you can achieve all the mentioned steps by only running the `giti fresh` command with the `--push` option.
 
 ### giti push
 
