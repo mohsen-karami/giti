@@ -152,6 +152,17 @@ stage_commit_push () {
   if [ $agreement == y ]; then
     if $is_wd_clean ; then
       printf "\e[1;1mNothing to commit, the working directory is clean\n\e[0;90m"
+    elif [[ $STAGED ]] && [[ -z $(git diff --cached) ]]; then
+        # Check if there are any staged changes
+        printf "\e[1;91mError: No changes are staged for commit. Please stage your changes first.\e[0m\n"
+        exit 1
+    elif [[ ! $STAGED ]] && [[ -n $(git diff --cached) ]]; then
+        # Check if there are staged changes but --staged flag is not used
+        printf "\e[1;91mError: You have staged changes in your working directory.\e[0m\n"
+        printf "\e[1;96mPlease either:\n"
+        printf "  • Unstage all changes\n"
+        printf "  • Use \e[1;93m--staged\e[1;96m flag to commit only staged changes\e[0m\n"
+        exit 1
     else
       if [ $TEMPORARY ]; then
         title="TEMPORARY: This commit is temporary and will be removed afterward."
@@ -162,16 +173,20 @@ stage_commit_push () {
         title=$label$title
         generate_comment_body
       fi
-      if [[ ! $STAGED ]]; then
+      if [[ $STAGED ]]; then
+        printf "\e[1;96mStashing your current unstaged changes\n\e[0;90m"
+        git stash save --keep-index
+        printf "\e[1;96mStashing your current staged changes\n\e[0;90m"
+      else
         printf "\e[1;96mStashing your current changes\n\e[0;90m"
-        git stash --include-untracked
-        printf "\e[1;96mPulling the latest changes of the \e[39m$BRANCH\e[96m branch\n\e[0;90m"
-        git pull
-        printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
-        git stash pop
-        printf "\e[1;96mStaging the changes\n\n\e[0;90m"
-        git add .
       fi
+      git stash --include-untracked
+      printf "\e[1;96mPulling the latest changes of the \e[39m$BRANCH\e[96m branch\n\e[0;90m"
+      git pull
+      printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
+      git stash pop
+      printf "\e[1;96mStaging the changes\n\n\e[0;90m"
+      git add .
       line_break="-------------------------------------------------------"
       if [ -z "$body" ]; then
         printf "\n\e[1;96mCommiting your changes with the following message:\n$line_break\n\n\e[1;93m$title\n\e[0;90m"
@@ -182,6 +197,10 @@ stage_commit_push () {
       fi
       printf "\e[1;96mPushing your commit into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
       git push
+      if [[ $STAGED ]]; then
+        printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
+        git stash pop
+      fi
     fi
   fi
 }
