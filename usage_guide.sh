@@ -10,7 +10,7 @@
 
 usage_guide() {
   cat << EOF >&2
-Giti 0.4.1, a Git utility.
+Giti 0.5.0, a Git utility.
 Usage: giti <command> [<options>] [<args>]
 
 
