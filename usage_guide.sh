@@ -10,7 +10,9 @@
 
 usage_guide() {
   cat << EOF >&2
-Giti 0.5.0, a Git utility.
+Giti version $1
+A powerful Git utility tailored to streamline your Git operations via a user-friendly interactive interface.
+
 Usage: giti <command> [<options>] [<args>]
 
 

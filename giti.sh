@@ -10,7 +10,7 @@
 ###########################################################################
 
 GITI_PATH=$( dirname $0 )
-
+VERSION=0.5.1
 # Ensure GITI_PATH is set correctly
 if [ -z "$GITI_PATH" ]; then
     echo "Error: GITI_PATH is not set"
@@ -36,7 +36,7 @@ IFS=' ' read -a Array <<<"$@"
 
 for element in $(seq 0 ${#Array}); do
   case ${Array[$element]} in
-    (-h|--help) usage_guide;;
+    (-h|--help) usage_guide $VERSION;;
     (-a|--append) APPEND=true;;
     (-i|--initial) INITIAL=true;;
     (-t|--tag) TAG=${Array[$element+1]};;
@@ -51,10 +51,19 @@ for element in $(seq 0 ${#Array}); do
     (--staged) STAGED=true;;
     (--temp) TEMPORARY=true;;
     (--hash) HASH=${Array[$element+1]};;
-    (-v|--v) echo "Giti 0.5.0, a Git utility."
+    (-v|--v) cat << EOF >&2
+Giti version $VERSION
+A powerful Git utility tailored to streamline your Git operations via a user-friendly interactive interface.
+
+Usage: giti <command> [<options>] [<args>]
+
+License: GPLv3
+Repository: https://github.com/mohsen-karami/giti
+
+EOF
              exit 1;;
     (-*|--*) echo "Invalid option: ${Array[$element]}" >&2;
-             usage_guide
+             usage_guide $VERSION
              exit 1;;
   esac
 done
@@ -74,7 +83,7 @@ else
 fi
 
 if [[ $# -eq 0 ]]; then
-  usage_guide
+  usage_guide $VERSION
   exit 0
 else
   for option in "$@"; do
@@ -83,7 +92,7 @@ else
       (push) push_changes;;
       (remove) remove_options;;
       (setup) set_up;;
-      (*) usage_guide;;
+      (*) usage_guide $VERSION;;
     esac
   done
 fi

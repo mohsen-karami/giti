@@ -171,12 +171,15 @@ check_requirements
 install_git
 install_for_os "$os_type"
 
-cat << 'EOF'
+# Detect user's shell and create appropriate message
+SHELL_NAME=$(basename "$SHELL")
+SOURCE_CMD="source ~/.${SHELL_NAME}rc"
+cat << EOF
 -----------------------------------------------------------
 Installation completed successfully!
 
 Next steps:
-   1. Restart your terminal or run: source ~/.bashrc
+   1. Restart your terminal or run: ${SOURCE_CMD}
    2. Verify installation by running: giti --version
    3. Get started with: giti --help
 
