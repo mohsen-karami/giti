@@ -10,7 +10,7 @@
 ###########################################################################
 
 GITI_PATH=$( dirname $0 )
-VERSION=0.5.1
+VERSION=0.5.3
 # Ensure GITI_PATH is set correctly
 if [ -z "$GITI_PATH" ]; then
     echo "Error: GITI_PATH is not set"
