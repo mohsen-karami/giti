@@ -51,14 +51,17 @@ for element in $(seq 0 ${#Array}); do
     (--staged) STAGED=true;;
     (--temp) TEMPORARY=true;;
     (--hash) HASH=${Array[$element+1]};;
-    (-v|--v) cat << EOF >&2
-Giti version $VERSION
+    (-v|--version) cat << EOF >&2
+Giti - Version $VERSION
 A powerful Git utility tailored to streamline your Git operations via a user-friendly interactive interface.
 
-Usage: giti <command> [<options>] [<args>]
+USAGE
+  giti <command> [options] [arguments]
 
-License: GPLv3
-Repository: https://github.com/mohsen-karami/giti
+Get started by running: giti --help
+
+Licensed under GPLv3
+Source Code: https://github.com/mohsen-karami/giti
 
 EOF
              exit 1;;
