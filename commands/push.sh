@@ -24,6 +24,17 @@ generate_comment_label () {
   index=$?
   labels=("feat: " "fix: " "style: " "chore: " "refactor: " "test: " "docs: " "build: " "perf: " "ci: ")
   label=${labels[$index]}
+
+  # Prompt the user to optionally enter a scope for the commit
+  printf "\e[1;93mOptionally, enter a scope for this commit (e.g., 'auth', 'ui', etc.):\n\e[1;94m"
+  printf "Press Enter to skip this step.\n\e[0;90m"
+  read -e scope
+
+  # If a scope is provided, format it and append it to the label
+  if [[ ! -z $scope ]]; then
+    scope="($scope): "
+    label=${label/$": "/$scope}
+  fi
 }
 
 generate_comment_title () {
