@@ -219,12 +219,12 @@ stage_commit_push () {
       fi
       if [[ $STAGED ]]; then
         printf "\e[1;96mStashing your current unstaged changes\n\e[0;90m"
-        git stash save --keep-index
+        git stash push --include-untracked --keep-index
         printf "\e[1;96mStashing your current staged changes\n\e[0;90m"
       else
         printf "\e[1;96mStashing your current changes\n\e[0;90m"
       fi
-      git stash --include-untracked
+      git stash push --include-untracked
       printf "\e[1;96mPulling the latest changes of the \e[39m$BRANCH\e[96m branch\n\e[0;90m"
       git pull
       printf "\e[1;96mRestoring your stashed changes\n\e[0;90m"
