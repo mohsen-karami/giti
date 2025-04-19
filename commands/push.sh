@@ -1,11 +1,28 @@
 #!/bin/bash
 
+
+# generate_comment_label: Prompt user to select a commit type and assign the corresponding label.
+# This function helps maintain standardized commit messages by enforcing conventional commit types.
+
 generate_comment_label () {
-  printf "\e[1;93mWhat have you done?\n\e[1;0m"
-  task_options=("Added new features" "Fixed bugs" "Modified style components" "Implemented minor changes" "Improved the code performance" "Refactored the code" "Wrote some tests" "Updated the documents")
+  printf "\e[1;93mSelect the type of change you are committing:\n\e[1;0m"
+
+  task_options=(
+    "feat: Adds a new feature"
+    "fix: Fixes a bug"
+    "style: Updates code formatting without functional changes"
+    "chore: General upkeep tasks, including configuration changes and dependency management"
+    "refactor: Improves code structure without altering functionality"
+    "test: Adds or modifies tests"
+    "docs: Updates or improves documentation"
+    "build: Changes build system or dependencies"
+    "perf: Optimizes performance"
+    "ci: Updates CI/CD configurations or pipelines"
+  )
+
   select_option "${task_options[@]}"
   index=$?
-  labels=("Feature: " "Fix: " "Style: " "Chore: " "Performance: " "Refactor: " "Test: " "Doc: ")
+  labels=("feat: " "fix: " "style: " "chore: " "refactor: " "test: " "docs: " "build: " "perf: " "ci: ")
   label=${labels[$index]}
 }
 
