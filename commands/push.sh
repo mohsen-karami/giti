@@ -56,28 +56,44 @@ generate_comment_title () {
   title="$(tr '[:lower:]' '[:upper:]' <<< ${title:0:1})${title:1}"
 }
 
+# generate_comment_body : Collects a detailed commit description and optional issue tracker link from the user.
 
 generate_comment_body () {
-  printf "\e[1;93mLeave a description for your commit:\n\e[0;90m"
-  printf "\e[1;94mThis is an optional input, press Enter to skip this step.\n\e[0;90m"
-  printf "\e[1;94mYou can write a multi-line description by typing "'\\\\n'" anywhere you wish to start a new line in your note.\n\e[0;90m"
-  read -e raw_description
-  raw_description="${raw_description//" "/$'!$%*'}"
-  raw_description="${raw_description//"\n"/\n$'\n'}"
-  for element in $raw_description; do
-    description+="$(tr '[:lower:]' '[:upper:]' <<< ${element:0:1})${element:1}"
+  printf "\e[1;93mPlease provide a detailed description for your commit. Multi-line input is supported.\n\e[0;90m"
+  printf "\e[1;94mNote: This step is optional; Press Enter to skip.\n\e[0;90m"
+  printf "\e[1;94mIf you choose to provide input, press Enter twice with a brief pause to finalize your description.\n\e[0;90m"
+
+  description=""
+  second_enter=0
+
+  while true; do
+    first_enter=$(date +%s)
+    read -e line
+
+    if [[ -z $line ]]; then
+      second_enter=$(date +%s)
+      if (( $second_enter - $first_enter < 1 )); then
+        break
+      fi
+    else
+      line="$(tr '[:lower:]' '[:upper:]' <<< ${line:0:1})${line:1}"
+      description+="$line"$'\n'
+    fi
+
   done
-  description="${description//"!$%*"/$' '}"
-  description="${description//"\n"/$'\n'}"
-  printf "\e[1;93mIn case of using an issue tracker, provide the link below:\n\e[0;90m"
-  printf "\e[1;94mThis is an optional input, press Enter to skip this step.\n\e[0;90m"
+
+  printf "\e[1;93mIf applicable, provide a link to the related issue tracker:\n\e[0;90m"
+  printf "\e[1;94mThis step is optional. Press Enter to skip.\n\e[0;90m"
   read -e link
-  if [ ! -z $link ]; then
-    if [ ! ${link:0:4} == "http" ]; then
+  # Ensure the link starts with "http" for proper formatting.
+  if [[ ! -z $link ]]; then
+    if [[ ${link:0:4} != "http" ]]; then
       link="https://"$link
     fi
     link="Reference: "$link
   fi
+
+  # Combine the description and link into the commit body, if provided.
   if [[ ! -z $description ]] && [[ ! -z $link ]]; then
     body=$description$'\n\n'$link
   elif [[ ! -z $description ]] || [[ ! -z $link ]]; then
