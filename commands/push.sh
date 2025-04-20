@@ -61,21 +61,24 @@ generate_comment_title () {
 generate_comment_body () {
   printf "\e[1;93mPlease provide a detailed description for your commit. Multi-line input is supported.\n\e[0;90m"
   printf "\e[1;94mNote: This step is optional; Press Enter to skip.\n\e[0;90m"
-  printf "\e[1;94mIf you choose to provide input, press Enter twice with a brief pause to finalize your description.\n\e[0;90m"
+  printf "\e[1;94mIf you choose to provide input, press Enter twice consecutively with a brief pause to finalize your description.\n\e[0;90m"
 
   description=""
   second_enter=0
 
   while true; do
     first_enter=$(date +%s)
-    read -e line
+    # Read input, allowing both manual multi-line input and pasted multi-line text
+    IFS= read -r line
 
     if [[ -z $line ]]; then
       second_enter=$(date +%s)
+      # Break if the user presses Enter twice consecutively with a brief pause
       if (( $second_enter - $first_enter < 1 )); then
         break
       fi
     else
+      # Capitalize the first letter of each line
       line="$(tr '[:lower:]' '[:upper:]' <<< ${line:0:1})${line:1}"
       description+="$line"$'\n'
     fi
