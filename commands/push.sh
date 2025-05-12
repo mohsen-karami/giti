@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-# generate_comment_label: Prompt user to select a commit type and assign the corresponding label.
+# commit_label: Prompt user to select a commit type and assign the corresponding label.
 # This function helps maintain standardized commit messages by enforcing conventional commit types.
 
-generate_comment_label () {
+commit_label () {
   printf "\e[1;93mSelect the type of change you are committing:\n\e[1;0m"
 
   task_options=(
@@ -37,7 +37,7 @@ generate_comment_label () {
   fi
 }
 
-generate_comment_title () {
+commit_message () {
   index=1
   printf "\e[1;93mEnter your commit message:\n\e[0;90m"
   read -e -a title_array
@@ -56,9 +56,9 @@ generate_comment_title () {
   title="$(tr '[:lower:]' '[:upper:]' <<< ${title:0:1})${title:1}"
 }
 
-# generate_comment_body : Collects a detailed commit description and optional issue tracker link from the user.
+# commit_description : Collects a detailed commit description and optional issue tracker link from the user.
 
-generate_comment_body () {
+commit_description () {
   printf "\e[1;93mPlease provide a detailed description for your commit. Multi-line input is supported.\n\e[0;90m"
   printf "\e[1;94mNote: This step is optional; Press Enter to skip.\n\e[0;90m"
   printf "\e[1;94mIf you choose to provide input, press Enter twice consecutively with a brief pause to finalize your description.\n\e[0;90m"
@@ -72,10 +72,14 @@ generate_comment_body () {
     IFS= read -r line
 
     if [[ -z $line ]]; then
-      second_enter=$(date +%s)
-      # Break if the user presses Enter twice consecutively with a brief pause
-      if (( $second_enter - $first_enter < 1 )); then
-        break
+      if [[ $second_enter -ne 0 ]]; then
+        second_enter=$(date +%s)
+        # Break if the user presses Enter twice consecutively with a brief pause
+        if (( $second_enter - $first_enter < 1 )); then
+          break
+        fi
+      else
+        second_enter=$(date +%s)
       fi
     else
       # Capitalize the first letter of each line
@@ -142,10 +146,10 @@ override_commits () {
         esac
       done
     fi
-    generate_comment_label
-    generate_comment_title
+    commit_label
+    commit_message
     title=$label$title
-    generate_comment_body
+    commit_description
     printf "\e[1;96mStaging the changes\n\n\e[0;90m"
     git add .
     line_break="-------------------------------------------------------"
@@ -215,10 +219,10 @@ stage_commit_push () {
         title="TEMPORARY: This commit is temporary and will be removed afterward."
         body="This commit represents unfinished work on adding a feature or resolving a bug. The main reason for existing such commits is the user's cautiousness to avoid losing the code even though it's not ready yet."
       else
-        generate_comment_label
-        generate_comment_title
+        commit_label
+        commit_message
         title=$label$title
-        generate_comment_body
+        commit_description
       fi
       if [[ $STAGED ]]; then
         printf "\e[1;96mStashing your current unstaged changes\n\e[0;90m"
