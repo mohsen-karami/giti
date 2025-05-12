@@ -8,16 +8,16 @@ generate_comment_label () {
   printf "\e[1;93mSelect the type of change you are committing:\n\e[1;0m"
 
   task_options=(
-    "feat: Adds a new feature"
     "fix: Fixes a bug"
-    "style: Updates code formatting without functional changes"
-    "chore: General upkeep tasks, including configuration changes and dependency management"
-    "refactor: Improves code structure without altering functionality"
+    "feat: Adds a new feature"
+    "perf: Optimizes performance"
     "test: Adds or modifies tests"
     "docs: Updates or improves documentation"
     "build: Changes build system or dependencies"
-    "perf: Optimizes performance"
     "ci: Updates CI/CD configurations or pipelines"
+    "style: Updates code formatting without functional changes"
+    "refactor: Improves code structure without altering functionality"
+    "chore: General upkeep tasks, including configuration changes and dependency management"
   )
 
   select_option "${task_options[@]}"
