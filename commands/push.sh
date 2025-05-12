@@ -43,7 +43,7 @@ commit_message () {
   read -e -a title_array
   while [ -z ${title_array} ]; do
     ((index++))
-    printf "\n\n\e[1;31mSorry, but the commit message is required.\e[0;39m\n"
+    printf "\e[1;31mCommit message is required.\e[0;39m\n"
     if (( index>3 )); then
       printf "\e[1;31mThe script has stopped running because the user refused to enter the commit message that is a required input.\e[0;39m\n"
       exit 2
@@ -60,33 +60,26 @@ commit_message () {
 
 commit_description () {
   printf "\e[1;93mPlease provide a detailed description for your commit. Multi-line input is supported.\n\e[0;90m"
-  printf "\e[1;94mNote: This step is optional; Press Enter to skip.\n\e[0;90m"
-  printf "\e[1;94mIf you choose to provide input, press Enter twice consecutively with a brief pause to finalize your description.\n\e[0;90m"
+  printf "\e[1;94mPress Ctrl+D (EOF) when you're done with your description.\n\e[0;90m"
 
   description=""
-  second_enter=0
+  prev_empty=true
 
-  while true; do
-    first_enter=$(date +%s)
-    # Read input, allowing both manual multi-line input and pasted multi-line text
-    IFS= read -r line
-
-    if [[ -z $line ]]; then
-      if [[ $second_enter -ne 0 ]]; then
-        second_enter=$(date +%s)
-        # Break if the user presses Enter twice consecutively with a brief pause
-        if (( $second_enter - $first_enter < 1 )); then
-          break
-        fi
-      else
-        second_enter=$(date +%s)
-      fi
-    else
+  # Read input until Ctrl+D (EOF) is detected
+  while IFS= read -er line || [[ -n "$line" ]]; do
+    
+    # If current line is empty and previous wasn't, allow one empty line
+    if [[ -z "$line" ]] && ! $prev_empty; then
+      description+=$'\n'
+      prev_empty=true
+      echo ""
+    # If line has content, process it
+    elif [[ -n "$line" ]]; then
       # Capitalize the first letter of each line
       line="$(tr '[:lower:]' '[:upper:]' <<< ${line:0:1})${line:1}"
       description+="$line"$'\n'
+      prev_empty=false
     fi
-
   done
 
   printf "\e[1;93mIf applicable, provide a link to the related issue tracker:\n\e[0;90m"
@@ -102,7 +95,7 @@ commit_description () {
 
   # Combine the description and link into the commit body, if provided.
   if [[ ! -z $description ]] && [[ ! -z $link ]]; then
-    body=$description$'\n\n'$link
+    body=$description$'\n'$link
   elif [[ ! -z $description ]] || [[ ! -z $link ]]; then
     body=$description$link
   fi
@@ -157,7 +150,7 @@ override_commits () {
       printf "\n\e[1;96mCommiting your changes with the following message:\n$line_break\n\n\e[1;93m$title\n\e[0;90m"
       git commit -m "$title"
     else
-      printf "\e[1;96mCommiting your changes with the following message and description:\n$line_break\n\n\e[38;5;69m$title\n\n\n\e[38;5;169m$body\n\e[0;90m"
+      printf "\e[1;96mCommiting your changes with the following message and description:\n$line_break\n\n\e[38;5;69m$title\n\n\e[38;5;169m$body\n\e[0;90m"
       git commit -m "$title" -m "$body"
     fi
     printf "\e[1;96mPushing your commit \e[31mforcefully\e[96m into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
@@ -243,7 +236,7 @@ stage_commit_push () {
         printf "\n\e[1;96mCommiting your changes with the following message:\n$line_break\n\n\e[1;93m$title\n\e[0;90m"
         git commit -m "$title"
       else
-        printf "\e[1;96mCommiting your changes with the following message and description:\n$line_break\n\n\e[38;5;69m$title\n\n\n\e[38;5;169m$body\n\e[0;90m"
+        printf "\e[1;96mCommiting your changes with the following message and description:\n$line_break\n\n\e[38;5;69m$title\n\n\e[38;5;169m$body\n\e[0;90m"
         git commit -m "$title" -m "$body"
       fi
       printf "\e[1;96mPushing your commit into the \e[39m$BRANCH\e[96m branch of the \e[39m$REPOSITORY\e[96m repository\n\e[0;90m"
