@@ -22,7 +22,7 @@ commit_label () {
 
   select_option "${task_options[@]}"
   index=$?
-  labels=("feat: " "fix: " "style: " "chore: " "refactor: " "test: " "docs: " "build: " "perf: " "ci: ")
+  labels=("fix: " "feat: " "perf: " "test: " "docs: " "build: " "ci: " "style: " "refactor: " "chore: ")
   label=${labels[$index]}
 
   # Prompt the user to optionally enter a scope for the commit
